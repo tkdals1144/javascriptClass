@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #wrap {
+            width: 1600px;
+            height: 800px;
+            border: 1px solid;
+            margin: 50px auto;
+            display: flex;
+            text-align: center;
+        }
+        #table_wrap {
+            width: 1000px;
+            border: 1px solid;
+            margin: 20px;
+            padding: 10px;
+            overflow-y: scroll;
+        }
+        table {
+            border-collapse:collapse;
+        }
+        td {
+            width: 200px;
+            height: 230px;
+        }
+        img {
+            width: 200px;
+            height: 200px;
+        }
+        .item {
+            width: 200px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="table_wrap">
+            <table border="1" id="table">
+                <tr>
+                    <td>
+                        <div>
+                            <img src="">
+                            <p class="item">짜장면</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="order_wrap">
+            <div id="order_box">
+                <p id="order_title">주문목록</p>
+                <div id="order"><ul></ul></div>
+                <p id="order_price">주문금액 <span id="price"></span></p>
+            </div>
+            <button onclick="order()"></button>
+        </div>
+    </div>
+    <script>
+        $table = document.querySelector("#table");
+        
+    </script>
+</body>
+</html>
