@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Do Hyeon", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+        #wrap {
+            width: 700px;
+            height: 800px;
+            border: 1px solid black;
+            margin: 20px auto;
+            padding: 30px;
+        }
+        h2 {
+            font-weight: bold;
+            font-size: 35px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        #box_wrap {
+            display: flex;
+        }
+        #box1 {
+            width: 300px;
+        }
+        h4 {
+            font-weight: bold;
+            text-align: center;
+        }
+        img {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+        }
+        #box2 {
+            margin-left: 30px;
+            width: 300px;
+        }
+        #text1 {
+            width: 350px;
+            height: 150px;
+            outline: none;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <h2>REVIEW DERAIL</h2>
+        <div id="box_wrap">
+            <div id="box1">
+                <h4>이미지</h4>
+                <img src="https://cdn.imweb.me/thumbnail/20190829/0dca568fcd6b7.jpg" alt="">
+            </div>
+            <div id="box2">
+                <h4>후기</h4>
+                <textarea name="textarea" id="text1"></textarea>
+            </div>
+        </div>
+        <div id="select_wrap">
+            <div class="select_box">
+                <h4 class="h4_2">연령대</h4>
+                <select name="select1" id="age_select">
+                    <option value="10">10~19</option>
+                    <option value="20">20~29</option>
+                    <option value="30">30~39</option>
+                    <option value="40">40~49</option>
+                    <option value="50">50~</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
