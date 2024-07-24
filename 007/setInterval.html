@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let time;
+        function init() {
+            // alert("hi");
+
+            if (time != null) clearInterval(time);
+            // doRotate(); // 작동하는지 확인하기 위한 코드
+
+            time = setInterval(doRotate, 1000);
+        }
+
+        function stopMove() {
+            if (time != null) clearInterval(time);
+        }
+
+        function doRotate() {
+            let contentE = document.querySelector("#content");
+            let content = document.querySelector("#content").innerHTML;
+            // alert(content);
+            let firstChar = content.substr(0, 1); //시작위치, 가져올개수
+            let remains = content.substr(1, content.length-1); // 첫번째 제외 전부 가져옴
+            content = remains + firstChar;
+            console.log(remains);
+            contentE.innerHTML = content;
+        }
+    </script>
+</head>
+<body onclick="init()">
+    <h3>텍스트가 자동회전하며, 마우스로 클릭하면 중단합니다</h3>
+    <p id="content" onclick="stopMove()">프론트 프로젝트 시작!</p>
+</body>
+</html>

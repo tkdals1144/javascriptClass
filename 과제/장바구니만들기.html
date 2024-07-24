@@ -32,9 +32,10 @@
             background-color: white;
             border: 2px solid salmon;
             border: 10px 0 0 0;
+            background-color: rgb(226, 212, 212);
         }
         table {
-            border: 1px solid black;
+            /* border: 1px solid black; */
             border-collapse:collapse;
         }
         td {
@@ -65,7 +66,7 @@
         }
         #modal {
             width: 600px;
-            height: 800px;
+            height: 200px;
             background-color: antiquewhite;
         }
         #order_wrap {
@@ -124,46 +125,186 @@
         button:hover {
             background-color: orange;
         }
+        #price {
+            margin-left: 250px;
+        }
+        #modal_header {
+            height: 60px;
+            background-color: grey;
+            text-align: right;
+        }
+        #xImage {
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+        }
+        #modal_main {
+            text-align: center;
+            margin-top: 10px;
+        }
+        #modal_p {
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .modal_button {
+            margin: 20px;
+            font-size: 16px;
+            height: 50px;
+            line-height: 50px;
+            width: 200px;
+        }
     </style>
 </head>
 <body>
     <div id="modal_wrap">
         <div id="modal">
-
+            <div id="modal_header">
+                <img src="../images/xImage.png" id="xImage" alt="" onclick="cancleOrder()">
+            </div>
+            <div id="modal_main">
+                <p id="modal_p">정말 주문하시겠습니까?</p>
+                <button class="modal_button" onclick="orderComplete()">네</button>
+                <button class="modal_button" onclick="cancleOrder()">아니오</button>
+            </div>
         </div>
     </div>
     <div id="wrap">
         <div id="table_wrap">
             <table id="table">
-                <tr>
-                    <td>
+                <tr class="tr1">
+                    <!-- <td>
                         <div>
                             <img src="">
                             <p class="item">짜장면</p>
                         </div>
-                    </td>
+                    </td> -->
                 </tr>
             </table>
         </div>
         <div id="order_wrap">
             <div id="order_box">
                 <p id="order_title">주문목록</p>
-                <div id="order"><ul></ul></div>
-                <p id="order_price">주문금액 <span id="price"></span></p>
+                <div id="order"><ul id="order_ul"></ul></div>
+                <p id="order_price">주문금액 <span id="price">0</span></p>
                 <button onclick="order()">주문하기</button>
             </div>
         </div>
     </div>
     <script>
-        itemDict = {'짜장면':'https://i.namu.wiki/i/j2AxLP9AtrcJebh4DVfGxowfXwI3a95dG_YZb_Ktczc6Ca7ACyd_NJL3YHQMw8SABGTQiJDwSpySOSSBLZVEZw.webp',
-            '짬뽕' : 'https://i.namu.wiki/i/upNZ7cYsFsAfU0KcguO6OHMK68xC-Bj8EXxdCti61Jhjx10UCBgdK5bZCEx41-aAWcjWZ5JMKFUSaUGLC1tqWg.webp',
-            '볶음밥' : 'https://i.namu.wiki/i/LSHO99AHJpGzryDcM1npuUFNwzSUFYxUmXmqnmVZHOuc5iqCkNYRjRli9aX50BZ3cHz4gtPTqxldJee82Zj0Mg.webp',
-            '라면' : 'https://health.chosun.com/site/data/img_dir/2024/04/05/2024040501986_0.jpg',
-            '삼겹살덮밥' : 'https://recipe1.ezmember.co.kr/cache/recipe/2018/11/10/4062272ccd376327e1c659cfccce43e31.jpg',
-            
+        // 추가할 음식이 있다면 여기에 추가하면 된다.
+        // key, value 딕셔너리를 이용해서 아무래도 가격을 추가하기에는 무리가 있다.
+        // 3가지 이상의 변수를 넣기 위해서는 객체배열을 사용하는것이 좋아보인다.
+        // 가격이 있어야 하기 때문에 눈물을 머금고 코드를 재조립한다.
+        itemDict = {'짜장면':['https://i.namu.wiki/i/j2AxLP9AtrcJebh4DVfGxowfXwI3a95dG_YZb_Ktczc6Ca7ACyd_NJL3YHQMw8SABGTQiJDwSpySOSSBLZVEZw.webp', "5000원"],
+            '짬뽕' : ['https://i.namu.wiki/i/upNZ7cYsFsAfU0KcguO6OHMK68xC-Bj8EXxdCti61Jhjx10UCBgdK5bZCEx41-aAWcjWZ5JMKFUSaUGLC1tqWg.webp', "6000원"],
+            '볶음밥' : ['https://i.namu.wiki/i/LSHO99AHJpGzryDcM1npuUFNwzSUFYxUmXmqnmVZHOuc5iqCkNYRjRli9aX50BZ3cHz4gtPTqxldJee82Zj0Mg.webp', "6000원"],
+            '신라면' : ['https://health.chosun.com/site/data/img_dir/2024/04/05/2024040501986_0.jpg', "3000원"],
+            '삼겹살덮밥' : ['https://recipe1.ezmember.co.kr/cache/recipe/2018/11/10/4062272ccd376327e1c659cfccce43e31.jpg', "7000원"],
+            '짜파게티' : ['https://recipe1.ezmember.co.kr/cache/recipe/2018/12/07/4a85594c164f443a24a1579e381bd38a1.jpg', "4000원"],
+            '오므라이스' : ['https://i.namu.wiki/i/oW-NfrrnUJM49CfbMZa-5Fzyodzux1quecpKYgAZYi-eu8OeWJ2eQEowJF8784Ob58QTdZeMAZ_AcB4qIsozPw.webp', "6000원"],
+            '수제버거' : ['https://cafe24.poxo.com/ec01/yangpyeongtour/HOvhRhvOk+Cp2KY4JuusAqw6AHf0tdSOiJEci4Sbto68+Hig6sZZ9rSB8RTrgi6F94OXqLMW3YWJiy5a3NS1HQ==/_/web/product/big/201905/063684016315f1cd817d252b4b08cdb9.jpg', "6000원"],
+            '돈까스덮밥' : ['https://recipe1.ezmember.co.kr/cache/recipe/2018/08/20/432ef6019582e048fc41fab3f0a55b401.JPG', "7000원"],
+            '참치마요덮밥' : ['https://recipe1.ezmember.co.kr/cache/recipe/2016/09/01/484b1194a69d0b2da09014a25a9334de1.jpg', "6000원"],
+            '컵라면' : ['https://kr.misumi-ec.com/linked/material/fs/OTG1/PHOTO/R943809.jpg', "2500원"],
+            '갈비탕' : ['https://s3.ap-northeast-2.amazonaws.com/gred/vendor/920/images/29_1614081088.jpg', "8000원"],
+            '육개장' : ['https://image.dongascience.com/Photo/2024/02/e1701ded5dc276737605b49a2acff20c.jpg', "7000원"],
+            '소고기무국' : ['https://recipe1.ezmember.co.kr/cache/recipe/2022/09/02/6db4d266c97d4a7107749fa4421c5d771.jpg', "6000원"],
+            '제육덮밥' : ['https://i.namu.wiki/i/l6PoAdPDh9UiTfuml_-Ik0om5LTdz_KavRQ31LNXvJqmjbXAdp0YaFu9iSMZ_Z8DOJqrhAYQzWFwq0vAgkUw5g.webp', "6000원"],
+            '수제핫도그' : ['https://recipe1.ezmember.co.kr/cache/recipe/2015/06/24/43fe603056ce9bfda829caed9da543fd1.jpg', "5000원"],
+            '라볶이' : ['https://recipe1.ezmember.co.kr/cache/recipe/2021/04/01/03c8358f5d04020ea00db124927e967c1.jpg', "5000원"],
+            '가츠동' : ['https://i.namu.wiki/i/gHyKzoat68YWuuYgSq-3ThEav2L2f58TJhH1Wf2Eybjx5O57t7zxfyOufLkyZmPa_1-wQoSfDimEYyAOo8naAQ.webp', "7000원"],
+            '수육국밥' : ['https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/5843758110/B.png?369000000', "7000원"],
         };
         $table = document.querySelector("#table");
-        
+        let countTr = 1;
+        let countTd = 0;
+
+        Object.keys(itemDict).forEach(key => {
+            let tdItem = document.createElement("td");
+            let divBox = document.createElement("div");
+            let boxP = document.createElement("p");
+            let boxP2 = document.createElement("p");
+            let boxImg = document.createElement("img");
+
+            boxP.innerHTML = key;
+            boxImg.src = (itemDict[key])[0];
+            boxP2.innerHTML = (itemDict[key])[1];
+            divBox.appendChild(boxImg);
+            divBox.appendChild(boxP);
+            divBox.appendChild(boxP2);
+            tdItem.appendChild(divBox);
+
+            divBox.style.margin = "20px";
+            divBox.style.cursor = "pointer";
+            boxP.style.backgroundColor = "grey";
+            boxP.style.color = "white";
+
+            divBox.classList.add("food_box");
+            boxP.classList.add("food_name");
+
+            countTd++;
+
+            if (countTd > 4) {
+                countTr++;
+                countTd = 1;
+
+                let Tr = document.createElement("tr");
+                Tr.classList.add(`tr${countTr}`);
+                $table.appendChild(Tr);
+            }
+
+            let currentTr = document.querySelector(`.tr${countTr}`)
+            currentTr.appendChild(tdItem);
+        });
+
+        window.addEventListener("load", function() {
+            $foodBox = document.querySelectorAll(".food_box");
+            $orderUl = document.querySelector("#order_ul");
+            $price = document.querySelector("#price");
+            let priceSum = 0;
+
+            for (let i = 0; i < $foodBox.length; i++) {
+                $foodBox[i].addEventListener("click", () => {
+                    console.log($foodBox[i].children[1].innerHTML);
+                    let itemList = document.createElement("li");
+                    let itemName = document.createElement("p");
+                    let itemPrice = document.createElement("p");
+
+                    itemList.style.display = "flex";
+                    itemList.style.justifyContent = "space-between";
+                    itemList.style.borderBottom = "0.5px solid gray";
+                    itemList.style.backgroundColor = "lightsalmon";
+                    itemList.style.padding = "0 20px"
+
+                    itemName.innerHTML = $foodBox[i].children[1].innerHTML;
+                    itemPrice.innerHTML = $foodBox[i].children[2].innerHTML;
+
+                    itemList.appendChild(itemName);
+                    itemList.appendChild(itemPrice);
+
+                    $orderUl.appendChild(itemList);
+
+                    priceSum += parseInt(itemPrice.innerHTML);
+                    console.log(priceSum);
+                    $price.innerHTML = priceSum;
+                });
+            }
+        });
+
+        function order() {
+            $modalWrap = document.querySelector("#modal_wrap");
+            $modalWrap.classList.add("active");
+        }
+
+        function cancleOrder() {
+            $modalWrap = document.querySelector("#modal_wrap");
+            $modalWrap.classList.remove("active");
+        }
+
+        function orderComplete() {
+            alert("주문 완료되었습니다!!");
+            cancleOrder();
+        }
     </script>
 </body>
 </html>

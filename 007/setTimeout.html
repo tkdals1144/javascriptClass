@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        
+        let time;
+
+        function show() {
+            console.log("hi");
+
+        }
+
+        function hide() {
+
+            if(time != null) {
+                clearTimeout(time);
+            }
+
+            console.log("bye");
+
+            // 첫번째 인자로는 함수, 두번째로는 초/1000
+            // 변수에 저장해서 clearTimeout에 태울수 있다
+            time = setTimeout(() => console.log("bye"), 3000);
+        }
+
+    </script>
+</head>
+<body>
+    <input type="text" onfocus="show()" onblur="hide()">
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrap {
+            height: 5000px;
+        }
+    </style>
+
+    <script>
+        window.addEventListener("load", function() {
+            let btn = document.getElementById("btn");
+            btn.addEventListener("click", function() {
+                alert("click");
+                // scrollTo : 어디로 어떻게 스크롤한다
+                window.scrollTo( { top:0, behavior:'smooth'} );
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="wrap"></div>
+    <button id="btn">맨위로</button>
+</body>
+</html>

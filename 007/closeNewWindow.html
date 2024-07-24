@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let newWin = null;
+        function openWindow() {
+            newWin = window.open("http://www.naver.com", "myWin", "left=0, top=0, width=400, height=300");
+        }
+        function closeWindow() {
+            // if (newWin != null) {
+            //     newWin.close();
+            //     console.log("작동");
+            // }
+            if (newWin == null || newWin.closed) return;
+            newWin.close();
+            console.log("작동");
+        }
+    </script>
+</head>
+<body>
+    <button onclick="openWindow()">naver</button>
+    <button onclick="closeWindow()">close</button>
+</body>
+</html>
